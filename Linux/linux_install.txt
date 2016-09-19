@@ -1,0 +1,127 @@
+﻿一.install mysql
+1.查看是否安装过
+yum list installed mysql*
+rpm -qa | grep mysql*
+
+2.查看有无安装包
+yum list mysql*
+
+3.安装客户端
+yum install mysql
+
+4.安装服务器端
+yum install mysql-server
+yum install mysql-devel
+
+5.数据库字符集设置
+mysql配置文件/etc/my.cnf中加入default-character-set=utf8
+
+6.启动&&停止
+启动：
+service mysqld start
+/etc/init.d/mysqld start
+
+停止：service mysqld stop
+
+查看开机启动：chkconfig --list | grep mysql*
+设置开启启动：chkconfig --add mysqld
+              chkconfig mysqld on
+
+7.MySQL的几个重要目录
+数据库目录：/var/lib/mysql/
+配置文件：/usr/share /mysql（mysql.server命令及配置文件）
+相关命令：/usr/bin（mysqladmin mysqldump等命令）
+启动脚本：/etc/rc.d/init.d/（启动脚本文件mysql的目录） 
+==========================================================
+==========================================================
+二.install JDK
+1.下载JDK的压缩文件
+http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
+jdk-7u79-linux-x64.gz
+
+2.创建目录
+mkdir /usr/local/java
+
+3.把jdk-7u79-linux-x64.gz文件放到/usr/local/java下
+
+4.解压缩文件
+tar xvf jdk-7u79-linux-x64.gz
+
+5.设置环境变量
+cd /etc 
+vi profile 
+添加：
+export JAVA_HOME=/usr/local/java/jdk1.7.0_79
+export JRE_HOME=/usr/local/java/jdk1.7.0_79/jre
+export PATH=$PATH:/usr/local/java/jdk1.7.0_79/bin
+export CLASSPATH=./:/usr/local/java/jdk1.7.0_79/lib:/usr/local/java/jdk1.7.0_79/jre/lib
+
+6.重启查看时候成功
+java -version
+==========================================================
+==========================================================
+三.install Tomcat
+1.下载tomcat7的压缩文件
+http://tomcat.apache.org/download-70.cgi
+apache-tomcat-7.0.68.tar.gz
+
+2.把apache-tomcat-7.0.68.tar.gz文件放到/usr/local/tmp下
+
+3.解压缩文件
+tar xvf apache-tomcat-7.0.68.tar.gz
+
+4.拷贝到文件路径下
+ mv apache-tomcat-7.0.68 /usr/local/tomcat7
+
+5.启动和关闭
+cd /usr/local/tomcat7
+./bin/startup.sh
+./bin//catalina.sh jpda start  (debug模式启动)
+./bin/shutdown.sh
+
+6.设置用户账户
+在/usr/local/tomcat7/conf/tomcat-users.xml文件中追加下面内容
+<role rolename="admin-gui"/>
+<role rolename="admin-script"/>
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<user username="tomcat" password="tomcat" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-script,admin-gui"/>
+==========================================================
+==========================================================
+四.install Maven
+1.下载压缩文件（http://maven.apache.org/download.cgi#）
+apache-maven-3.2.3-bin.tar.gz
+
+2.解压缩文件并移动文件
+$ tar vxf apache-maven-3.2.3-bin.tar.gz
+$ mv apache-maven-3.2.3 /usr/local/maven3
+
+3.修改环境变量
+在/etc/profile中添加以下几行
+
+MAVEN_HOME=/usr/local/maven3
+export MAVEN_HOME
+export PATH=${PATH}:${MAVEN_HOME}/bin
+
+
+记得执行source /etc/profile使环境变量生效。
+
+4.检验是否配置成功
+最后运行mvn -v验证maven是否安装成功，如果安装成功会打印如下内容
+Apache Maven 3.2.3 (33f8c3e1027c3ddde99d3cdebad2656a31e8fdf4; 2014-08-12T04:58:10+08:00)
+Maven home: /usr/local/maven3
+Java version: 1.7.0_65, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.13.0-35-generic", arch: "amd64", family: "unix"
+==========================================================
+==========================================================
+五.install Apache
+查看是否安装
+apachectl -v
+==========================================================
+==========================================================
+六.关闭防火墙
+chkconfig iptables off
