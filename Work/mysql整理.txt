@@ -1,0 +1,28 @@
+1.too many connection快速解决：
+192.168.196.14:9100:   sh 9100.sh
+192.168.196.14:9103    sh 9103.sh
+
+如果上计操作未解决，证明是有3列错误信息（少数情况，9103居多），执行备用脚本。
+192.168.196.14:9100:    sh 9100_1.sh
+192.168.196.14:9103:    sh 9103_1.sh
+
+2.数据库整理相关：
+查询连接命令：ps -ef|grep erp_dev01 --color
+重启相关：
+192.168.196.14:9100：
+/home/mysql/bin/mgr.sh stop erp_dev01
+/home/mysql/bin/mgr.sh start erp_dev01
+
+192.168.196.14:9103
+/home/mysql/bin/mgr.sh stop erp_dev04
+/home/mysql/bin/mgr.sh start erp_dev04
+
+最原始的重启命令：
+/home/mysql/base/5.5.38/bin/mysqld_safe --defaults-extra-file=/home/mysql/data/5.5.38/erp_dev01/my.cnf
+
+重启命令显示路径找不到的情况（钢哥误删的情况）
+/home/mysql/bin 中serverlist.txt中追加如下配置
+erp_dev01   5.5.38 9100
+erp_dev04   5.5.30 9103
+
+其他情况直接@赵哥

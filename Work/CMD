@@ -1,0 +1,31 @@
+gzip 103_20161112000634.tsv                                   # 打包命令（gz）
+gzip -c 103_20161112000634.tsv > 103_20161112000634.gz        # 打包命令（gz）
+
+gunzip 103_20161112000634.tsv.gz                              # 解压包命令（gz）
+gunzip -c 103_20161112000634.gz > 111.tsv                     # 解压包命令（gz）
+
+
+head -5 /log/application.log                                  # 查看前5行
+tail --help
+tail -10 /log/application.log                                 # 查看后10行
+tail -f /log/application.log                                  # 不停地去读最新的内容，用Ctrl＋c来终止
+sed -n '5,10p' /log/application.log                           # 只能看到5-10行的信息
+
+
+#######Ktremotemgr List########################################
+ktremotemgr list
+ktremotemgr list -pv
+ktremotemgr get 【key】
+ktremotemgr remove 【key】
+ktremotemgr report -port 1978
+ktremotemgr clear -port 10001
+http://192.168.196.205:1978/rpc/clear
+###############################################################
+ps -ef | grep kyototycoon
+
+
+
+
+
+
+
