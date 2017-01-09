@@ -1,14 +1,14 @@
 #####mysql最大连接设定#####
-mysql -h 192.168.196.14 -P9103 -uroot -p
+mysql -h 192.168.196.1400 -P9103 -uroot -p
 show variables like '%max_connections%';
 set global max_connections=200000;
 
 #####数据库启动#####
-14:9100
+1400:9100
 ps -ef | grep erp_dev01 | awk '{print $2}' | xagrs kill
 /home/mysql/bin/mgr.sh start erp_dev01
 
-14:9103
+1400:9103
 ps -ef | grep erp_dev04 | awk '{print $2}' | xagrs kill
 /home/mysql/bin/mgr.sh start erp_dev04
 

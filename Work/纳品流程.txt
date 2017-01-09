@@ -1,7 +1,7 @@
 git remote -v
 
 �µ����汾��֧������˳(��.6����)
-git fetch upstream      # ȡ���ձ���master��֧����֤������֧�ǽ������ձ������´���֮��
+git fetch upstreamTest      # ȡ���ձ���master��֧����֤������֧�ǽ������ձ������´���֮��
 git checkout master
 git merge upstream/master
 git branch x.x.x.x               # ������֧
