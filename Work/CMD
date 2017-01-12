@@ -11,6 +11,9 @@ tail -10 /log/application.log                                 # 查看后10行
 tail -f /log/application.log                                  # 不停地去读最新的内容，用Ctrl＋c来终止
 sed -n '5,10p' /log/application.log                           # 只能看到5-10行的信息
 
+########Soft Link#######################################
+ll                                                            # 查看目录下的软连接
+ln -s jdk1.8.0_73 java                                        # 建立软连接
 
 #######Ktremotemgr List########################################
 ktremotemgr list
