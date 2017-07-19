@@ -26,6 +26,14 @@ http://192.168.196.205:1978/rpc/clear
 ###############################################################
 ps -ef | grep kyototycoon
 
+###############################################################
+cd /var/spool/cron
+vi root
+56 * * * * /home/www/code/batch-blade-ap-log-transfer/realtime_count/realtime_count.sh 56 57 "`date "+\%F \%H"`" >> /home/www/code/realtime_count.log 2>&1
+
+crontab -l
+crontab -e
+###############################################################
 
 
 

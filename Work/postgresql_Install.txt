@@ -1,0 +1,63 @@
+1.安装postgresql
+$ su - root
+$ cd /usr/local
+$ wget http://yum.pgrpms.org/9.4/redhat/rhel-5-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+$ rpm -i pgdg-centos94-9.4-1.noarch.rpm
+$ cd /etc/yum.repos.d
+$ vi CentOS-Base.repo 
+
+[base]  
+name=CentOS-$releasever - Base  
+mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os  
+#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/  
+gpgcheck=1  
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6  
+exclude=postgresql*                                                                # 添加这行
+
+#released updates  
+[updates]  
+name=CentOS-$releasever - Updates  
+mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates  
+#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/  
+gpgcheck=1  
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6  
+exclude=postgresql*                                                                # 添加这行
+
+$ yum list postgres*  
+$ yum install postgresql94 postgresql94-devel postgresql94-server postgresql94-libs postgresql94-contrib
+$ service postgresql-9.4 initdb
+$ service postgresql-9.4 start
+$ vi /etc/profile
+添加以下内容
+
+PATH=$PATH:/usr/pgsql-9.4/bin
+export PATH
+
+2.创建数据库
+$ su - postgres 
+$ psql postgres postgres
+postgres=# alter user postgres with password 'postgres';
+postgres=# create user root with password 'cloudera';
+postgres=# create database ZD_TEST_1 owner=root;
+postgres=# \q
+
+3.创建表
+$ su - root
+$ service postgresql-9.4 start
+$ psql -U root -d zd_test_1
+gm_param_db1=> CREATE TABLE T1 (
+  col1            TEXT         NOT NULL,
+  col2                TEXT         NOT NULL
+);
+
+psql -U root -d zd_test_1 -c "DELETE FROM STRUCT_GROSS_OVERRUN WHERE target_date='${DATE}'"
+psql -U root -d zd_test_1 -c "\\COPY STRUCT_GROSS_OVERRUN FROM '/home/www/code/summary/sh/tmp/import_to_puredata/struct_gross_overrun.tsv'"
+
+
+netstat -a | grep PGSQL
+/var/lib/pgsql/9.4/data/pg_hba.conf
+host    all             all             192.168.196.165/32            trust
+
+/var/lib/pgsql/9.4/data/postgresql.conf
+port = 5432
+listen_addresses='*'
